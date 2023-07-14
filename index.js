@@ -4,11 +4,9 @@ const cors=require('cors')
 
 const todoRouter=require('./routers/todoRouter')
 const userRouter=require('./routers/userRouter')
-const   cookieParser = require('cookie-parser')
 const PORT = process.env.PORT
 console.log(PORT)
 const app = express()
-app.use(cookieParser())
 app.use(cors({
     origin:'http://127.0.0.1:5173',
     credentials:true,
@@ -20,6 +18,6 @@ app.use('/api',todoRouter)
 
 
 
-app.use('/answer',(req,res)=>res.send('ok'))
+app.use('/answer',(req,res)=>res.json('ok'))
 app.listen(PORT|| 5000 , ()=>console.log('server start'))
 
