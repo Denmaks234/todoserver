@@ -21,5 +21,5 @@ app.use('/api',todoRouter)
 
 
 app.use('/answer',(req,res)=>res.send('ok'))
-app.listen(PORT, ()=>console.log('server start'))
+app.listen(PORT|| 5000 , ()=>console.log('server start'))
 
