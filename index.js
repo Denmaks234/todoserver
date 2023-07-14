@@ -8,7 +8,7 @@ const PORT = process.env.PORT
 console.log(PORT)
 const app = express()
 app.use(cors({
-    origin:'https://todo-front-kknnftea7-denmaks234.vercel.app',
+    origin:'todo-front-9v9od6upc-denmaks234.vercel.app',
     credentials:true,
     
 }))
