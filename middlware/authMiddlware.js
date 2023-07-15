@@ -15,7 +15,7 @@ require('dotenv').config()
     next() 
     } catch (error) {
         console.log(error)
-        res.json(error)
+        res.status(400).send("Вихід")
     }
 
     
