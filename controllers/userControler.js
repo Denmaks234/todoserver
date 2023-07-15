@@ -12,11 +12,11 @@ class userControler {
             const haveEmail= await db.query(`select * from users where email = $1  `,[email])
               
               if(haveUsername.rows.length || haveEmail.rows.length){
-                res.status(404).send('Цей користувач є в системі')
+                res.status(404).json('Цей користувач є в системі')
                 return
               }
               if(!email || !password || !username){
-                res.status(404).send('Ви не заповнили обовязкове поле')
+                res.status(404).json('Ви не заповнили обовязкове поле')
                 return
               }
               const salt = bcrypt.genSaltSync(10)
@@ -27,7 +27,7 @@ class userControler {
               res.json({accsess:true,token})
                     
         } catch (error) {
-          res.status(404).send('Ошибка при регістрації')
+          res.status(404).send('Ошибка при реєстрації')
         }
     }
 
@@ -36,11 +36,17 @@ class userControler {
       try {
         const {email,password}=req.body
         const user = await  db.query('select * from users where email = $1 ',[email])
+        if(!email || !password){
+          res.status(404).json('Ви не заповнили обовязкове поле')
+          return
+        }
       if(!user.rows[0]){
         
         return res.status(401).send('Такого користувача немає')
         
       }
+      
+
       const validPassword= await bcrypt.compare(password,user.rows[0].password)
       const id=user.rows[0].id
       if (validPassword){
@@ -48,7 +54,7 @@ class userControler {
         return res.json({accsess:true,token})
       }
       else{
-        return res.json({accsess:false})
+        return res.status(400).json('Неправильні ведені email або пароль')
       }
       } catch (error) {
         return res.status(400).send(error)

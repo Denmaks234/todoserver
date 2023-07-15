@@ -22,9 +22,8 @@ class todoController {
             console.log(userData)
             const {title,descr,completed}=req.body
             if(!title){
-               return  res.status(400).send('Не заповнене обовязкове поле')
+               return  res.status(400).send('Пусте поле завдання')
             }
-            
             const newTodo = await  db.query(`INSERT INTO todositems (title, descr,completed,user_id) values ($1,$2,$3,$4) returning *`,[
                 title,descr,completed,userData.id
             ])
@@ -43,6 +42,9 @@ class todoController {
             const {id}=req.params
             console.log(id)
            const  {title,descr,completed}=req.body
+           if(!title){
+            return  res.status(400).send('Пусте поле завдання')
+         }
            const updatePost = await db.query(`update todositems set title=$1,descr=$2,completed=$3 where id=$4 returning *`,[title,descr,completed,id ])
            res.json(updatePost)
 
