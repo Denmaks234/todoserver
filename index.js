@@ -8,7 +8,7 @@ const PORT = process.env.PORT
 console.log(PORT)
 const app = express()
 app.use(cors({
-    origin:'https://todo-front-inky.vercel.ap',
+    origin:'https://todo-front-inky.vercel.app',
     credentials:true,
     
 }))
@@ -16,7 +16,6 @@ app.use(express.json())
 app.use('/',userRouter)
 app.use('/api',todoRouter)
 
-
-app.use('/answer',(req,res)=>res.json('ok'))
+app.use('/answer',(req,res)=>res.json('okey'))
 app.listen(PORT|| 5000 , ()=>console.log('server start'))
 
